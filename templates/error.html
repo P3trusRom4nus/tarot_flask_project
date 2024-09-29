@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something Went Wrong</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Error Message Section -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl font-semibold text-red-500 mb-6">Oops! Something Went Wrong</h1>
+            <p class="text-lg text-gray-700">We encountered an issue while processing your payment. Please try again later or contact support if the problem persists.</p>
+            <a href="{{ url_for('index') }}" class="mt-8 inline-block bg-pink-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-pink-600">Return to Home</a>
+        </div>
+    </section>
+
+</body>
+</html>

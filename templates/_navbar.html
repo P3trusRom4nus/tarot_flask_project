@@ -1,0 +1,25 @@
+<!-- Navbar Partial -->
+<nav class="bg-gray-700 text-white py-4 fixed w-full top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        <div>
+            <a href="{{ url_for('index') }}" class="text-2xl font-bold mt-5">Triple 9 Tarot</a>
+        </div>
+        <div class="hidden md:flex space-x-6">
+            <a href="{{ url_for('services') }}" class="hover:text-pink-400">Services</a>
+            <a href="{{ url_for('booking') }}" class="hover:text-pink-400">Booking</a>
+            <a href="{{ url_for('index') }}" class="hover:text-pink-400">Home</a> 
+        </div>
+        <div class="md:hidden">
+            <button id="hamburger" class="focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden mt-2 flex flex-col items-center">
+        <a href="{{ url_for('services') }}" class="block py-2 px-4 text-sm hover:bg-pink-400">Services</a>
+        <a href="{{ url_for('booking') }}" class="block py-2 px-4 text-sm hover:bg-pink-400">Booking</a>
+     <a href="{{ url_for('index') }}" class="block py-2 px-4 text-sm hover:bg-pink-400">Home</a>
+    </div>
+</nav>

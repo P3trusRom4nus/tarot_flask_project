@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking | Tarot Readings</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-pink-400 via-pink-300 to-pink-300 text-gray-800">
+
+ <!-- Include Navbar -->
+ {% include '_navbar.html' %}
+
+    <!-- Booking Form Section -->
+    <section class="py-20 mt-10">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-semibold text-center mb-10">Book Your Tarot Reading</h2>
+            <form id="booking-form" class="bg-gray-100 p-8 rounded-lg shadow-lg">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="mb-4">
+                    <label for="name" class="block text-lg font-medium text-gray-700">Name</label>
+                    <input type="text" id="name" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="Your full name">
+                    <p id="name-error" class="error-message hidden">Name is required.</p>
+                </div>
+
+                <!-- Zodiac Sign Dropdown -->
+                <div class="mb-4">
+                    <label for="zodiac_sign" class="block text-lg font-medium text-gray-700">Zodiac Sign</label>
+                    <select id="zodiac" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+                        <option value="">Select your Zodiac Sign</option>
+                        <option value="Aries">Aries</option>
+                        <option value="Taurus">Taurus</option>
+                        <option value="Gemini">Gemini</option>
+                        <option value="Cancer">Cancer</option>
+                        <option value="Leo">Leo</option>
+                        <option value="Virgo">Virgo</option>
+                        <option value="Libra">Libra</option>
+                        <option value="Scorpio">Scorpio</option>
+                        <option value="Sagittarius">Sagittarius</option>
+                        <option value="Capricorn">Capricorn</option>
+                        <option value="Aquarius">Aquarius</option>
+                        <option value="Pisces">Pisces</option>
+                    </select>
+                    <p id="zodiac-error" class="error-message hidden">Please select your zodiac sign.</p>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-lg font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="you@example.com">
+                    <p id="email-error" class="error-message hidden">Please enter a valid email.</p>
+                </div>
+                <div class="mb-4">
+                    <label for="service" class="block text-lg font-medium text-gray-700">Select Service</label>
+                    <select id="service" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+                        <option value="50">One-card draw - $50</option>
+                        <option value="75">Three-card draw - $75</option>
+                        <option value="150">Astrology Birth Chart Interpretation - $150</option>
+                        <option value="250">Personalized Guided Meditation - $250</option>
+                    </select>
+                </div>
+                
+                <!-- Additional Message Section -->
+                <div id="message-container" class="mb-4">
+                    <label for="message" class="block text-lg font-medium text-gray-700">Additional Message</label>
+                    <textarea id="message" maxlength="500" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="Any specific questions or details?"></textarea>
+                    <p id="message-error" class="hidden text-red-500 text-sm mt-2">Please enter an additional message.</p>
+                </div>
+
+                <!-- Birth Details Section (Hidden by default) -->
+                <div id="birth-details" class="hidden">
+                    <div class="mb-4">
+                        <label for="dob" class="block text-lg font-medium text-gray-700">Date of Birth</label>
+                        <input type="date" id="dob" max="{{ max_date }}" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+                        <p id="dob-error" class="error-message hidden">Date of birth is required for this service.</p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="tob" class="block text-lg font-medium text-gray-700">Time of Birth</label>
+                        <input type="time" id="tob" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+                        <p id="tob-error" class="error-message hidden">Time of birth is required for this service.</p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="pob" class="block text-lg font-medium text-gray-700">Place of Birth</label>
+                        <input type="text" id="pob" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="City, Country">
+                        <p id="pob-error" class="error-message hidden">Place of birth is required for this service.</p>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button id="checkout-button" class="bg-pink-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-pink-600">
+                        Pay for Your Reading - $50
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
+</body>
+</html>

@@ -10,32 +10,33 @@ from html import escape
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf import CSRFProtect
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///orders.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.urandom(24)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS', False)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 csrf = CSRFProtect(app)
 
 db = SQLAlchemy(app)
 
 # Email configurations
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'triple9.ar@gmail.com'  # Your Gmail account
-app.config['MAIL_PASSWORD'] = '3edC2wsX1qaZ!!!'  # Your Gmail password or App-specific password
-app.config['MAIL_DEFAULT_SENDER'] = 'triple9.ar@gmail.com'  # The sender email address
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+app.config['MAIL_PORT'] = os.getenv('MAIL_PORT')
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', True)
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')  # Your Gmail account
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')  # Your Gmail password or App-specific password
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')  # The sender email address
 app.config['MAIL_USE_SSL'] = False
 
 mail = Mail(app)
 
 VALID_ZODIAC_SIGNS = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces']
 
-#stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
-stripe.api_key = 'sk_test_51PoO6PCoTdGj90U5YmTHqltRCh4LVcKtG3OCGImQI6LCEBDzLIzNR7lvheD59IgPcUxgziBQjPu93nBFvipN8dmT00Wvx4Yfso'
-
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 # Order model
 class Order(db.Model):
@@ -77,7 +78,7 @@ def booking():
 @limiter.limit("5 per minute")
 def create_checkout_session():
     
-    
+
 
     data = request.get_json()
     

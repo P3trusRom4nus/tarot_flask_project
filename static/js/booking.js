@@ -103,6 +103,21 @@ document.getElementById('checkout-button').addEventListener('click', function(e)
         return;
     }
 
+
+    // Hide the loader when the page loads or is restored from the browser cache
+    function hideLoaderOnLoad() {
+        document.getElementById('loader').classList.add('hidden');
+    }
+
+    // Hide the loader on page load (for regular loads)
+    document.addEventListener('DOMContentLoaded', hideLoaderOnLoad);
+
+    // Hide the loader on pageshow (for when coming back from cache)
+    window.addEventListener('pageshow', hideLoaderOnLoad);
+
+    document.getElementById('loader').classList.remove('hidden');
+
+
 var name = document.getElementById('name').value;
 var email = document.getElementById('email').value;
 var zodiacSign = document.getElementById('zodiac').value; // Capture zodiac sign

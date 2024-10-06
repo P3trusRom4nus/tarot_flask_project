@@ -23,3 +23,31 @@
      <a href="{{ url_for('index') }}" class="block py-2 px-4 text-sm hover:bg-pink-400">Home</a>
     </div>
 </nav>
+
+<script>
+    // Show loader on navigation (for links and buttons, except the hamburger)
+    document.querySelectorAll('a, button').forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            // Only show the loader if the clicked element is not the hamburger or its menu
+            if (!event.target.closest('#hamburger') && !event.target.closest('#mobile-menu')) {
+                document.getElementById('loader').classList.remove('hidden');
+            }
+        });
+    });
+
+    // Hamburger menu toggle
+    document.getElementById('hamburger').addEventListener('click', function (e) {
+        var menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    });
+
+    // Show the loader when navigating away from the page (except for menu actions)
+    window.addEventListener('beforeunload', function () {
+        document.getElementById('loader').classList.remove('hidden');
+    });
+
+    // Hide loader when the page is fully loaded
+    window.addEventListener('load', function () {
+        document.getElementById('loader').classList.add('hidden');
+    });
+</script>

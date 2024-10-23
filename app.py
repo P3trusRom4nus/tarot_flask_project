@@ -125,7 +125,9 @@ def success():
 
     return render_template('success.html', name=name, email=email)
 
+
 @app.route('/stripe-webhook', methods=['POST'])
+@csrf.exempt
 def stripe_webhook():
     """
     This route handles Stripe webhooks.

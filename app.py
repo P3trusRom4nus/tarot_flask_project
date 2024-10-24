@@ -75,7 +75,7 @@ def booking():
 
 
 @app.route('/create-checkout-session', methods=['POST'])
-@limiter.limit("5 per minute")
+@limiter.limit("5 per minute", key_func=get_remote_address)
 def create_checkout_session():
     
 

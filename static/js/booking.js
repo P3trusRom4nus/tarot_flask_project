@@ -1,5 +1,4 @@
 
-var stripe = Stripe('pk_test_51PoO6PCoTdGj90U5E5DOanokwNOooPCC1CD4372cLYGiYdzVp4ZYyH3wtL1I85OeQM3OOWy202swRECDAYrA7ngs001l8v2VuH');
 
 function updateButtonText() {
     var servicePrice = parseInt(document.getElementById('service').value);

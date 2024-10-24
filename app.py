@@ -69,7 +69,7 @@ def services():
 @app.route('/booking')
 def booking():
     max_date = datetime.now().strftime('%Y-%m-%d')
-    return render_template('booking.html', max_date=max_date)
+    return render_template('booking.html', max_date=max_date, stripe_public_key=os.getenv('STRIPE_PUBLIC_KEY'))
 
 
 

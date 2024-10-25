@@ -75,7 +75,7 @@ def booking():
 
 
 @app.route('/create-checkout-session', methods=['POST'])
-@limiter.limit("5 per minute", key_func=get_remote_address)
+@limiter.limit("300 per day; 50 per hour", key_func=get_remote_address)
 def create_checkout_session():
     
 
@@ -119,15 +119,28 @@ def create_checkout_session():
         return jsonify(error=str(e)), 403
 
 @app.route('/success')
+@limiter.exempt
 def success():
-    name = session['name']
-    email = session['email']
+    session_id = request.args.get('session_id')
+    print("sessionID:" + session_id)
+    if not session_id:
+        return redirect(url_for('index'))
+    
+    checkout_session = stripe.checkout.Session.retrieve(session_id)
+    print("PAYMENT STATUS:" + checkout_session['payment_status'])
 
+    if checkout_session['payment_status'] != 'paid':
+        return redirect(url_for('index'))
+    
+    name = session.get('name')
+    email = session.get('email')
     return render_template('success.html', name=name, email=email)
+
 
 
 @app.route('/stripe-webhook', methods=['POST'])
 @csrf.exempt
+@limiter.exempt
 def stripe_webhook():
     """
     This route handles Stripe webhooks.

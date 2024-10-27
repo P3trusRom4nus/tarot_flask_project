@@ -129,7 +129,7 @@ def send_order_email(order):
         Order ID: {order.id}
         Name: {order.name}
         Email: {order.email}
-        Service Price: ${order.service_price/100:.2f}
+        Service Price: ${order.service_price}
         Zodiac Sign: {order.zodiac_sign}
         Message: {order.message}
         Date Created: {order.date_created}
@@ -197,7 +197,7 @@ def create_checkout_session():
         OrderService.create_pending_order(
             name=data['name'],
             email=data['email'],
-            service_price=int(data['servicePrice']) * 100,
+            service_price=int(data['servicePrice']),
             message=data['message'],
             zodiac_sign=data['zodiacSign'],
             stripe_session_id=checkout_session.id
@@ -238,9 +238,7 @@ def success():
                 except Exception as e:
                     logger.error(f"Error sending success email: {str(e)}")
             return render_template('success.html', name=order.name, email=order.email)
-        else:
-            # Payment not confirmed yet, show pending page
-            return render_template('pending.html')
+        return redirect(url_for('index'))
             
     except stripe.error.StripeError as e:
         logger.error(f"Stripe error in success route: {str(e)}")

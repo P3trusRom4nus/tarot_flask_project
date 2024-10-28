@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, timezone
 from sqlalchemy.sql import func
 import stripe
 from dotenv import load_dotenv
+from threading import Thread
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -59,12 +60,17 @@ class PaymentStatus(enum.Enum):
     COMPLETED = "completed"
     FAILED = "failed"
 
+#asyncronous mail sending
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
+
 # Models
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), nullable=False)
-    service_price = db.Column(db.Integer, nullable=False)  # Store price in cents
+    service_price = db.Column(db.Integer, nullable=False)  
     message = db.Column(db.Text, nullable=True)
     zodiac_sign = db.Column(db.String(20), nullable=True)
     date_created = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc) - timedelta(hours=3))
@@ -136,7 +142,7 @@ def send_order_email(order):
         Payment Status: {order.payment_status.value}
         Stripe Session ID: {order.stripe_session_id}
         """
-        mail.send(msg)
+        Thread(target=send_async_email, args=(app, msg)).start()
         logger.info(f"Sent order email for order ID {order.id}")
     except Exception as e:
         logger.error(f"Error sending email for order ID {order.id}: {str(e)}")

@@ -7,7 +7,7 @@ from flask_mail import Mail, Message
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf import CSRFProtect
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from sqlalchemy.sql import func
 import stripe
 from dotenv import load_dotenv
@@ -67,7 +67,7 @@ class Order(db.Model):
     service_price = db.Column(db.Integer, nullable=False)  # Store price in cents
     message = db.Column(db.Text, nullable=True)
     zodiac_sign = db.Column(db.String(20), nullable=True)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    date_created = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc) - timedelta(hours=3))
     stripe_session_id = db.Column(db.String(200), unique=True)
     payment_status = db.Column(db.Enum(PaymentStatus), default=PaymentStatus.PENDING)
     payment_intent_id = db.Column(db.String(200), unique=True)

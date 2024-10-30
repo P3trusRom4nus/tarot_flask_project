@@ -7,6 +7,7 @@
         <div class="hidden md:flex space-x-6">
             <a href="{{ url_for('services') }}" class="hover:text-pink-400">Services</a>
             <a href="{{ url_for('booking') }}" class="hover:text-pink-400">Booking</a>
+            <a href="{{ url_for('faq') }}" class="hover:text-pink-400">FAQ</a>
             <a href="{{ url_for('index') }}" class="hover:text-pink-400">Home</a> 
         </div>
         <div class="md:hidden">
@@ -20,7 +21,8 @@
     <div id="mobile-menu" class="hidden md:hidden mt-2 flex flex-col items-center">
         <a href="{{ url_for('services') }}" class="block py-2 px-4 text-sm hover:bg-pink-400">Services</a>
         <a href="{{ url_for('booking') }}" class="block py-2 px-4 text-sm hover:bg-pink-400">Booking</a>
-     <a href="{{ url_for('index') }}" class="block py-2 px-4 text-sm hover:bg-pink-400">Home</a>
+        <a href="{{ url_for('faq') }}" class="block py-2 px-4 text-sm hover:bg-pink-400">FAQ</a>
+        <a href="{{ url_for('index') }}" class="block py-2 px-4 text-sm hover:bg-pink-400">Home</a>
     </div>
 </nav>
 

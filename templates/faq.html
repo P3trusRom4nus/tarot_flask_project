@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Tarot Readings</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 text-gray-800">
+
+    <!-- Navbar Include -->
+    {% include '_navbar.html' %}
+
+    <!-- FAQ Section -->
+    <section class="py-20 mt-10">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-5xl font-semibold text-center text-gray-800 mb-12">Frequently Asked Questions</h2>
+            <div class="space-y-6">
+
+                <!-- FAQ Item 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-2">How do I book a tarot reading?</h3>
+                    <p class="text-gray-700">You can book a reading by clicking the "Book Now" button under each service on our Services page. This will direct you to the booking form, where you can complete your reservation.</p>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-2">What can I expect from a One Card Draw?</h3>
+                    <p class="text-gray-700">The One Card Draw is a focused reading designed to answer a specific question or provide guidance on a single issue. This quick reading is perfect for clarity on the go.</p>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-2">How long does a Three Card Draw session last?</h3>
+                    <p class="text-gray-700">The Three Card Draw generally lasts 15-20 minutes, during which we explore past, present, and future energies to gain insights into your question or situation.</p>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-2">What should I prepare for the Astrology Birth Chart Interpretation?</h3>
+                    <p class="text-gray-700">Please have your birth date, time, and location ready, as these details are essential for creating an accurate chart. This personalized reading offers deeper insight into your life path.</p>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-2">How is the Personalized Guided Meditation structured?</h3>
+                    <p class="text-gray-700">Our guided meditation session combines your birth details and numerology to create a tailored experience aimed at bringing peace and clarity to your mind. Each session is designed to match your unique needs.</p>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-2">What is your refund policy?</h3>
+                    <p class="text-gray-700">Refunds are available if cancellations are made 24 hours in advance. For same-day cancellations, the fee will be credited toward a future session instead.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-700 text-white py-10 text-center">
+        <p>&copy; 2024 Triple 9 Tarot. All Rights Reserved.</p>
+        <div class="mt-4">
+            <a href="#" class="text-pink-400 mx-2">Instagram</a>
+            <a href="#" class="text-pink-400 mx-2">YouTube</a>
+            <a href="#" class="text-pink-400 mx-2">Contact</a>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loader" class="hidden fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="loader">
+            <svg class="animate-spin h-10 w-10" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                <circle class="stroke-current text-gray-900" fill="none" stroke-width="4" cx="25" cy="25" r="20" />
+                <circle class="stroke-current text-gray-100" fill="none" stroke-width="4" cx="25" cy="5" r="1" />
+            </svg>
+        </div>
+    </div>
+    
+</body>
+</html>

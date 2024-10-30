@@ -153,6 +153,10 @@ def send_order_email(order):
 def index():
     return render_template('index.html')
 
+@app.route('/FAQ')
+def faq():
+    return render_template('faq.html')
+
 @app.route('/services')
 def services():
     return render_template('services.html')

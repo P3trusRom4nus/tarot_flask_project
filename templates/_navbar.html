@@ -27,6 +27,10 @@
 </nav>
 
 <script>
+    // Store menu elements
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
     // Show loader on navigation (for links and buttons, except the hamburger)
     document.querySelectorAll('a, button').forEach(function (element) {
         element.addEventListener('click', function (event) {
@@ -38,9 +42,24 @@
     });
 
     // Hamburger menu toggle
-    document.getElementById('hamburger').addEventListener('click', function (e) {
-        var menu = document.getElementById('mobile-menu');
-        menu.classList.toggle('hidden');
+    hamburger.addEventListener('click', function (e) {
+        mobileMenu.classList.toggle('hidden');
+        // Push state to history when opening menu
+        if (!mobileMenu.classList.contains('hidden')) {
+            history.pushState({ menuOpen: true }, '');
+        }
+    });
+
+    // Listen for back button
+    window.addEventListener('popstate', function(event) {
+        mobileMenu.classList.add('hidden');
+    });
+
+    // Also handle page visibility changes
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'hidden') {
+            mobileMenu.classList.add('hidden');
+        }
     });
 
     // Show the loader when navigating away from the page (except for menu actions)

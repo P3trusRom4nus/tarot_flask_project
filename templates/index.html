@@ -12,7 +12,7 @@
         }
     </style>
 </head>
-<body class="bg-white text-gray-800">
+<body onpageshow="if(event.persisted) document.getElementById('loader').classList.add('hidden')" class="bg-white text-gray-800">
 
     <!-- Include Navbar -->
     {% include '_navbar.html' %}

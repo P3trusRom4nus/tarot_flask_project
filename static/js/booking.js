@@ -141,26 +141,36 @@ var requestData = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken  // Add CSRF token to headers
+            'X-CSRFToken': csrfToken
         },
         body: JSON.stringify(requestData)
     })
-    .then(function (response) {
-        return response.json();
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            throw new Error(data.error || 'An error occurred');
+        }
+        return stripe.redirectToCheckout({ sessionId: data.id });
     })
-    .then(function (session) {
-        return stripe.redirectToCheckout({ sessionId: session.id });
-    })
-    .then(function (result) {
+    .then(result => {
         if (result.error) {
-            alert(result.error.message);
+            throw new Error(result.error.message);
         }
     })
-    .catch(function (error) {
-        console.error('Error:', error);
+    .catch(error => {
+        document.getElementById('loader').classList.add('hidden');
+        if (error.errors) {
+            // Handle validation errors
+            Object.entries(error.errors).forEach(([field, message]) => {
+                const errorElement = document.getElementById(`${field}-error`);
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.classList.remove('hidden');
+                }
+            });
+        } else {
+            console.error('Error:', error);
+            alert('');
+        }
     });
-    });
-
-
-
-
+});

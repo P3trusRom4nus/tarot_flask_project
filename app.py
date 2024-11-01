@@ -12,6 +12,7 @@ from sqlalchemy.sql import func
 import stripe
 from dotenv import load_dotenv
 from threading import Thread
+from OrderValidator import OrderValidator
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -173,50 +174,105 @@ def booking():
 def create_checkout_session():
     try:
         data = request.get_json()
-        
+        if not data:
+            return jsonify({
+                'success': False,
+                'error': 'No data provided'
+            }), 400
+
+        # Validate the input data
+        validation_result = OrderValidator.validate_order_data(data)
+        if not validation_result.is_valid:
+            return jsonify({
+                'success': False,
+                'errors': validation_result.errors
+            }), 400
+
         # Store user data in session
         session['name'] = data.get('name')
         session['email'] = data.get('email')
 
-        # Create Stripe checkout session
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[{
-                'price_data': {
-                    'currency': 'usd',
-                    'product_data': {
-                        'name': 'Tarot Reading',
+        # Format message based on service type
+        service_price = int(data['servicePrice'])
+        if service_price in [150, 250]:
+            message = f"Date of Birth: {data.get('dob')}, Time of Birth: {data.get('tob')}, Place of Birth: {data.get('pob')}"
+        else:
+            message = data.get('message', '')
+
+        try:
+            # Create Stripe checkout session
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[{
+                    'price_data': {
+                        'currency': 'usd',
+                        'product_data': {
+                            'name': 'Tarot Reading',
+                        },
+                        'unit_amount': service_price * 100,
                     },
-                    'unit_amount': int(data['servicePrice']) * 100,
-                },
-                'quantity': 1,
-            }],
-            mode='payment',
-            success_url=url_for('success', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url=url_for('index', _external=True),
-            metadata={
-                'name': data['name'],
-                'email': data['email'],
-                'zodiac_sign': data['zodiacSign'],
-                'message': data['message'],
-                'service_price': data['servicePrice']
-            }
-        )
+                    'quantity': 1,
+                }],
+                mode='payment',
+                success_url=url_for('success', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=url_for('index', _external=True),
+                metadata={
+                    'name': data['name'],
+                    'email': data['email'],
+                    'zodiac_sign': data['zodiacSign'],
+                    'message': message,
+                    'service_price': str(service_price)
+                }
+            )
+        except stripe.error.StripeError as e:
+            logger.error(f"Stripe error: {str(e)}")
+            return jsonify({
+                'success': False,
+                'error': 'Payment processing error. Please try again.'
+            }), 500
 
-        # Create pending order
-        OrderService.create_pending_order(
-            name=data['name'],
-            email=data['email'],
-            service_price=int(data['servicePrice']),
-            message=data['message'],
-            zodiac_sign=data['zodiacSign'],
-            stripe_session_id=checkout_session.id
-        )
+        try:
+            # Create pending order in database
+            order = OrderService.create_pending_order(
+                name=data['name'],
+                email=data['email'],
+                service_price=service_price,
+                message=message,
+                zodiac_sign=data['zodiacSign'],
+                stripe_session_id=checkout_session.id
+            )
+            
+            if not order:
+                logger.error("Failed to create order in database")
+                return jsonify({
+                    'success': False,
+                    'error': 'Failed to create order. Please try again.'
+                }), 500
 
-        return jsonify({'id': checkout_session.id})
+        except Exception as e:
+            logger.error(f"Database error: {str(e)}")
+            # Attempt to cancel Stripe session if database operation fails
+            try:
+                stripe.checkout.Session.expire(checkout_session.id)
+            except stripe.error.StripeError as stripe_error:
+                logger.error(f"Failed to expire Stripe session: {str(stripe_error)}")
+            
+            return jsonify({
+                'success': False,
+                'error': 'Failed to process order. Please try again.'
+            }), 500
+
+        return jsonify({
+            'success': True,
+            'id': checkout_session.id
+        }), 200
+
     except Exception as e:
-        logger.error(f"Error creating checkout session: {str(e)}")
-        return jsonify(error=str(e)), 403
+        logger.error(f"Unexpected error in checkout session: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': 'An unexpected error occurred. Please try again.'
+        }), 500
 
 @app.route('/success')
 @limiter.exempt

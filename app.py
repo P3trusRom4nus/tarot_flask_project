@@ -180,12 +180,14 @@ def create_checkout_session():
                 'error': 'No data provided'
             }), 400
 
-        # Validate the input data
+       # Validate the input data
         validation_result = OrderValidator.validate_order_data(data)
         if not validation_result.is_valid:
+            # Log the validation errors without returning them
+            logger.error(f"Validation error: {validation_result.errors}")
             return jsonify({
                 'success': False,
-                'errors': validation_result.errors
+                'error': 'Invalid input data'
             }), 400
 
         # Store user data in session

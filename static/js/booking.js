@@ -170,7 +170,7 @@ var requestData = {
             });
         } else {
             console.error('Error:', error);
-            alert('');
+            alert('Our system is currently offline for maintenance. Please try again later.');
         }
     });
 });

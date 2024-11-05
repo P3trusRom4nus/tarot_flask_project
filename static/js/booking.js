@@ -7,7 +7,7 @@ function updateButtonText() {
     var messageContainer = document.getElementById('message-container');
     
     // Update button text
-    checkoutButton.textContent = 'Pay for Your Reading - $' + servicePrice;
+    checkoutButton.textContent = 'Pay $' + servicePrice;
 
     // Show or hide birth details and message based on service selection
     if (servicePrice === 150 || servicePrice === 250) {

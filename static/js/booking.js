@@ -95,6 +95,35 @@ document.getElementById('message').addEventListener('input', function () {
     document.getElementById('message-error').classList.add('hidden');
 });
 
+/*
+// In the booking.js file
+window.onload = function() {
+    // Get the service price from the query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const servicePrice = urlParams.get('service');
+
+    // Set the selected option in the service dropdown
+    const serviceDropdown = document.getElementById('service');
+    serviceDropdown.value = servicePrice;
+
+    // Update the button text and show/hide birth details and message based on the selected service
+    updateButtonText();
+};
+
+*/
+
+// In the booking.js file
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let servicePrice = urlParams.get('service');
+    if (!servicePrice) {
+        servicePrice = '50';
+    }
+    document.getElementById('service').value = servicePrice;
+    updateButtonText();
+};
+
+
 document.getElementById('checkout-button').addEventListener('click', function(e) {
     e.preventDefault(); // Prevent form submission
 

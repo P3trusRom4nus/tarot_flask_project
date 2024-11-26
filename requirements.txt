@@ -21,6 +21,7 @@ MarkupSafe==2.1.5
 mdurl==0.1.2
 ordered-set==4.1.0
 packaging==24.1
+paddle-python-sdk==1.1.2
 Pygments==2.18.0
 python-dotenv==1.0.1
 requests==2.32.3

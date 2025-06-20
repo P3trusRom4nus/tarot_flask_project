@@ -10,6 +10,105 @@
         body {
             font-family: 'Playfair Display', serif;
         }
+        
+        /* Elegant animations */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes gentle-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: sparkle 3s ease-in-out infinite;
+        }
+        
+        .sparkle:nth-child(1) { top: 15%; left: 20%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 25%; left: 80%; animation-delay: 1s; }
+        .sparkle:nth-child(3) { top: 40%; left: 10%; animation-delay: 2s; }
+        .sparkle:nth-child(4) { top: 60%; left: 85%; animation-delay: 0.5s; }
+        .sparkle:nth-child(5) { top: 75%; left: 30%; animation-delay: 1.5s; }
+        .sparkle:nth-child(6) { top: 35%; left: 60%; animation-delay: 2.5s; }
+        .sparkle:nth-child(7) { top: 80%; left: 70%; animation-delay: 0.8s; }
+        .sparkle:nth-child(8) { top: 20%; left: 45%; animation-delay: 1.8s; }
+        .sparkle:nth-child(9) { top: 10%; left: 65%; animation-delay: 2.2s; }
+        .sparkle:nth-child(10) { top: 30%; left: 15%; animation-delay: 0.3s; }
+        .sparkle:nth-child(11) { top: 50%; left: 90%; animation-delay: 1.7s; }
+        .sparkle:nth-child(12) { top: 70%; left: 50%; animation-delay: 2.8s; }
+        .sparkle:nth-child(13) { top: 85%; left: 15%; animation-delay: 0.9s; }
+        .sparkle:nth-child(14) { top: 45%; left: 35%; animation-delay: 2.1s; }
+        .sparkle:nth-child(15) { top: 12%; left: 90%; animation-delay: 1.4s; }
+        .sparkle:nth-child(16) { top: 65%; left: 25%; animation-delay: 0.7s; }
+        .sparkle:nth-child(17) { top: 90%; left: 80%; animation-delay: 2.6s; }
+        .sparkle:nth-child(18) { top: 28%; left: 75%; animation-delay: 1.1s; }
+        .sparkle:nth-child(19) { top: 55%; left: 5%; animation-delay: 2.9s; }
+        .sparkle:nth-child(20) { top: 18%; left: 40%; animation-delay: 0.6s; }
+        
+        .sparkle-white {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .sparkle-pink {
+            background: rgba(236, 72, 153, 0.8);
+        }
+        
+        .sparkle-gray {
+            background: rgba(156, 163, 175, 0.7);
+        }
+        
+        .gentle-float {
+            animation: gentle-float 4s ease-in-out infinite;
+        }
+        
+        .fade-in-up {
+            animation: fade-in-up 1s ease-out;
+        }
+        
+        .elegant-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .elegant-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .elegant-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.2);
+        }
+        
+        .elegant-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
+        }
+        
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+        }
     </style>
 </head>
 <body onpageshow="if(event.persisted) document.getElementById('loader').classList.add('hidden')" class="bg-white text-gray-800">
@@ -18,75 +117,142 @@
     {% include '_navbar.html' %}
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-pink-500 to-pink-300 text-white py-20 mt-16">
-        <div class="container mx-auto px-6 lg:px-32">
-            <div class="text-center">
+    <section class="bg-gradient-to-r from-pink-500 to-pink-300 text-white py-20 mt-16 relative overflow-hidden">
+        <!-- Sparkles -->
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        <div class="sparkle sparkle-white"></div>
+        
+        <div class="container mx-auto px-6 lg:px-32 relative z-10">
+            <div class="text-center fade-in-up">
                 <h1 class="text-5xl font-bold mb-6 mx-4 lg:mx-20">Discover the Mysteries of Your Future</h1>
                 <p class="text-lg mb-6 mx-4 lg:mx-20">Have a better understanding of yourself and the world around you.
                     Our Tarot readings will awaken your inner spark, boost your
                     confidence, and inspire you to
                     live your most authentic, vibrant life.</p>
-                <a href="{{ url_for('booking') }}" class="bg-white text-pink-600 font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-pink-100 transition duration-300">Book Your Reading</a>
+                <a href="{{ url_for('booking') }}" class="elegant-button bg-white text-pink-600 font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-pink-50 transition duration-300 inline-block">Book Your Reading</a>
             </div>
         </div>
     </section>
 
     <!-- About Me Section -->
-    <section class="bg-gradient-to-r from-gray-200 to-white text-gray-800 py-20">
-        <div class="max-w-4xl mx-auto px-6 lg:px-32 text-center"> <!-- Applied padding -->
-            <h2 class="text-4xl font-semibold mb-6">Elevated Awareness</h2>
-            <p class="text-lg">
-                We are a team of expert tarotists, who bring a unique blend of knowledge
-                and expertise to every reading. We have backgrounds in philosophy,
-                psychology, astrology, numerology, sacred geometry, and personal development.
-            </p>
-            <p class="text-lg mt-4">
-                By combining our unique knowledge and expertise, we provide you with insights 
-                that go beyond the superficial. We'll guide you through life's obstacles, 
-                revealing hidden patterns and opening new doors for personal growth and 
-                self-awareness.
-            </p>
+    <section class="bg-gradient-to-r from-gray-200 to-white text-gray-800 py-20 relative overflow-hidden">
+        <!-- Gray sparkles -->
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        <div class="sparkle sparkle-gray"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 lg:px-32 text-center relative z-10">
+            <div class="gentle-float">
+                <h2 class="text-4xl font-semibold mb-6">Elevated Awareness</h2>
+                <p class="text-lg">
+                    We are a team of expert tarotists, who bring a unique blend of knowledge
+                    and expertise to every reading. We have backgrounds in philosophy,
+                    psychology, astrology, numerology, sacred geometry, and personal development.
+                </p>
+                <p class="text-lg mt-4">
+                    By combining our unique knowledge and expertise, we provide you with insights 
+                    that go beyond the superficial. We'll guide you through life's obstacles, 
+                    revealing hidden patterns and opening new doors for personal growth and 
+                    self-awareness.
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- Preview of Tarot Readings Section -->
-    <section class="bg-gradient-to-r from-black to-gray-700 text-white py-20">
-        <div class="max-w-4xl mx-auto px-6 lg:px-32 text-center"> <!-- Applied padding -->
-            <h2 class="text-4xl font-semibold mb-6">Take the first step towards transformation</h2>
-            <p class="text-lg">
-                Our tarot readings are designed to tap into your inner wisdom, helping you
-                make informed decisions that align with your values and goals. By
-                listening to the whispers of your intuition, you'll become more confident
-                in your choices and more at peace with your path.
-            </p>
-            <a href="{{ url_for('booking') }}" class="inline-block mt-8 bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-pink-600 transition duration-300">Book Your Reading</a> </div>
+    <section class="bg-gradient-to-r from-black to-gray-700 text-white py-20 relative overflow-hidden">
+        <!-- Pink sparkles -->
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        <div class="sparkle sparkle-pink"></div>
+        
+        <div class="gradient-overlay absolute inset-0"></div>
+        <div class="max-w-4xl mx-auto px-6 lg:px-32 text-center relative z-10">
+            <div class="elegant-card rounded-2xl p-10">
+                <h2 class="text-4xl font-semibold mb-6">Take the first step towards transformation</h2>
+                <p class="text-lg mb-8">
+                    Our tarot readings are designed to tap into your inner wisdom, helping you
+                    make informed decisions that align with your values and goals. By
+                    listening to the whispers of your intuition, you'll become more confident
+                    in your choices and more at peace with your path.
+                </p>
+                <a href="{{ url_for('booking') }}" class="elegant-button bg-pink-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-pink-600 transition duration-300 inline-block">Book Your Reading</a>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-10 text-center">
         <p>&copy; 2024 Triple 9 Tarot. All Rights Reserved.</p>
         <div class="mt-4">
-            <a href="#" class="text-pink-400 mx-2">Instagram</a>
-            <a href="#" class="text-pink-400 mx-2">YouTube</a>
-            <a href="#" class="text-pink-400 mx-2">Contact</a>
+            <a href="#" class="text-pink-400 mx-2 hover:text-pink-300 transition-colors duration-300">Instagram</a>
+            <a href="#" class="text-pink-400 mx-2 hover:text-pink-300 transition-colors duration-300">YouTube</a>
+            <a href="#" class="text-pink-400 mx-2 hover:text-pink-300 transition-colors duration-300">Contact</a>
         </div>
     </footer>
 
-    <!-- spinner -->
+    <!-- Elegant spinner -->
     <div id="loader" class="hidden fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
-        <div class="loader">
-                <svg class="animate-spin h-10 w-10" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                    <circle class="stroke-current text-gray-900" fill="none" stroke-width="4" cx="25" cy="25" r="20" />
-                    <circle class="stroke-current text-gray-100" fill="none" stroke-width="4" cx="25" cy="5" r="1" />
-                </svg>
-            </div>
+        <div class="loader text-center">
+            <svg class="animate-spin h-12 w-12 mx-auto mb-4" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                <circle class="stroke-current text-gray-300" fill="none" stroke-width="3" cx="25" cy="25" r="20" />
+                <circle class="stroke-current text-pink-500" fill="none" stroke-width="3" cx="25" cy="5" r="1.5" />
+            </svg>
+            <p class="text-gray-300 animate-pulse">Loading...</p>
         </div>
-
-        
-        
-
-    
-    
+    </div>
 
 </body>
 </html>
